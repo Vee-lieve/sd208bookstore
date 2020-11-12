@@ -9,8 +9,8 @@ const {
   deleteBook,
 } = require("../controllers/bookController");
 
-router.get("/", getBooks);
-router.get("/:id", getBookById);
+router.get("/books", getBooks);
+router.get("/books/:id", getBookById);
 router.post("/", addBook);
 router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);

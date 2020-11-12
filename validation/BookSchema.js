@@ -7,5 +7,5 @@ const BookSchema = Joi.object({
     yearPublished: Joi.date().required().min(4).max(20),
     price: Joi.number().required().min(4).max(20),
 });
-
+    
 module.exports = BookSchema;

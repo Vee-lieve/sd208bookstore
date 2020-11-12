@@ -1,116 +1,117 @@
 const { response } = require("express");
 const e = require("express");
+// const {replaceOne} = require("../models/Book");
 const Book = require("../models/Book");
 const parseRequestBody = require("../utils/parseRequestBody");
 
-const getBooks = async(req, res) => {
+const getBooks = async(request, response) => {
     try {
         const books = await Book.find();
         if (!books) {
-            return res.status(400).json({
+            return response.status(400).json({
                 error: "Error in getting books!",
             });
         }
 
-        res.status(200).json({
+        response.status(200).json({
             books: books,
         });
     } catch (e) {
-        return res.status(400).json({
+        return response.status(400).json({
             error: e,
         });
     }
 };
 
-const getBookById = async (req, res) => {
+const getBookById = async (request, response) => {
     try {
-        const book = await Book.find({ _id: req.params.id });
+        const book = await Book.find({ _id: request.params.id });
 
         if (!book || book.length === 0) {
-            return res.status(400).json({
+            return response.status(400).json({
                 error: "Book not found!",
             });
         }
 
-        res.status(200).json({
+        response.status(200).json({
             book: book,
         });
     } catch (e) {
-        return res.status(400).json({
+        return response.status(400).json({
             error: e,
         });
     }
 };
 
-const addBook = async (req, res) => {
+const addBook = async (request, response) => {
     try {
         const book = {
-            title: req.body.title,
-            author: req.body.author,
-            genre: req.body.genre,
-            yearPublished: req.body.yearPublished,
-            price: req.body.price,
+            title: request.body.title,
+            author: request.body.author,
+            genre: request.body.genre,
+            yearPublished: request.body.yearPublished,
+            price: request.body.price
         };
 
         const newBook = new Book(book);
         const result = await newBook.save();
 
         if (!result) {
-            return res.status(400).json({
+            return response.status(400).json({
                 error: "Error in ading new book!",
             });
         }
 
-        res.status(200).json({
+        response.status(200).json({
             message: "New book added!",
         });
     } catch (e) {
-        return res.status(400).json({
+        return response.status(400).json({
             error: e,
         });
     }
 };
 
-const updateBook = async (req, res) => {
-    const updates = parseRequestBody(req.body);
+const updateBook = async (request, response) => {
+    const updates = parseRequestBody(request.body);
     try {
         const result = await Book.updateOne(
-            { _id: req.params.id },
+            { _id: request.params.id },
             { $set: updates }
         );
 
         if (!result) {
-            return res.status(400).json({
+            return response.status(400).json({
                 error: "Error in updating book!",
             });
         }
 
-        res.status(200).json({
+        response.status(200).json({
             result: result,
         });
     } catch (e) {
-        return res.status(400).json({
+        return response.status(400).json({
             error: e,
         });
     }
 };
 
-const deleteBook = async (req, res) => {
+const deleteBook = async (request, response) => {
     try {
-        await Book.deleteOne({ _id: req.params.id }, (error, result) => {
+        await Book.deleteOne({ _id: request.params.id }, (error, result) => {
             if (error) {
-                return res.status(400).json({
+                return response.status(400).json({
                     error: error,
                 });
             }
 
-            res.status(200).json({
+            response.status(200).json({
                 message: "Successfully deleted book",
                 result: result,
             });
         });
     } catch (e) {
-        return res.status(400).json({
+        return response.status(400).json({
             error: e,
         });
     }
