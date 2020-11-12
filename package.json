@@ -1,0 +1,22 @@
+{
+  "name": "sd208bookstore",
+  "version": "1.0.0",
+  "description": "Bookstore API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vee-lieve/sd208bookstore.git"
+  },
+  "author": "Evangeline Decorion",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vee-lieve/sd208bookstore/issues"
+  },
+  "homepage": "https://github.com/Vee-lieve/sd208bookstore#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
